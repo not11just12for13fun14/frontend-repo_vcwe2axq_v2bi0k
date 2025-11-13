@@ -13,6 +13,24 @@ function SectionTitle({ eyebrow, title, subtitle }) {
   )
 }
 
+const services = [
+  {
+    title: 'Design to Dev',
+    desc: 'Pixel-perfect implementation of Figma designs with attention to motion and accessibility.',
+    tags: ['React', 'Tailwind', 'A11y']
+  },
+  {
+    title: 'Full‑stack Apps',
+    desc: 'From API to UI: performant, maintainable, and documented.',
+    tags: ['FastAPI', 'MongoDB', 'Testing']
+  },
+  {
+    title: 'Performance + DX',
+    desc: 'Audits, code-splitting, caching strategies, and developer experience improvements.',
+    tags: ['Vite', 'Code Split', 'Caching']
+  },
+]
+
 const projects = [
   {
     title: 'Neon UI Library',
@@ -55,22 +73,30 @@ const posts = [
 function App() {
   const backendUrl = import.meta.env.VITE_BACKEND_URL
 
+  const noiseSvg = encodeURIComponent(
+    "<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(#n)' opacity='0.8'/></svg>"
+  )
+
   return (
     <div className="min-h-screen bg-[#05060a] text-white">
       {/* Global gradient and grain */}
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute inset-0 bg-[radial-gradient(60%_60%_at_50%_0%,rgba(59,130,246,0.15),transparent_60%),radial-gradient(40%_40%_at_100%_0%,rgba(147,51,234,0.15),transparent_60%),radial-gradient(50%_50%_at_0%_100%,rgba(56,189,248,0.12),transparent_60%)]" />
-        <div className="absolute inset-0 mix-blend-overlay opacity-[0.25]" style={{ backgroundImage: 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'300\'><filter id=\'n\'><feTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/></filter><rect width=\'100%\' height=\'100%\' filter=\'url(%23n)\' opacity=\'0.8\'/></svg>' )' }} />
+        <div
+          className="absolute inset-0 mix-blend-overlay opacity-[0.25]"
+          style={{ backgroundImage: `url("data:image/svg+xml;utf8,${noiseSvg}")` }}
+        />
       </div>
 
       {/* Navbar */}
       <header className="fixed top-0 left-0 right-0 z-30 border-b border-white/10 bg-black/30 backdrop-blur-xl">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <a href="#" className="text-white/90 font-semibold tracking-tight">
-            <span className="text-blue-400">/</span> my-portfolio
+            <span className="text-blue-400">/</span> tothemax.dev
           </a>
           <nav className="hidden md:flex items-center gap-6 text-sm">
             <a href="#about" className="text-gray-300 hover:text-white transition-colors">About</a>
+            <a href="#services" className="text-gray-300 hover:text-white transition-colors">Services</a>
             <a href="#projects" className="text-gray-300 hover:text-white transition-colors">Projects</a>
             <a href="#blogs" className="text-gray-300 hover:text-white transition-colors">Blogs</a>
             <a href="#contact" className="text-gray-900 bg-blue-400/90 hover:bg-blue-400 px-3 py-1.5 rounded-md font-medium transition-colors">Contact</a>
@@ -112,7 +138,7 @@ function App() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle
             eyebrow="About"
-            title="Hi, I’m Alex — I turn ideas into polished products"
+            title="Hi, I’m Max — I turn ideas into polished products"
             subtitle="Full‑stack engineer with a design mindset. I obsess over clarity, performance, and smooth interactions."
           />
           <div className="grid md:grid-cols-3 gap-6">
@@ -124,6 +150,32 @@ function App() {
               <div key={b.h} className="rounded-xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-transparent p-6">
                 <h3 className="text-lg font-semibold mb-2">{b.h}</h3>
                 <p className="text-gray-300 text-sm">{b.p}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Services */}
+      <section id="services" className="relative py-20 sm:py-28">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionTitle
+            eyebrow="Services"
+            title="How I can help"
+            subtitle="Targeted engagements that move your product forward."
+          />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.map((s) => (
+              <div key={s.title} className="group rounded-xl border border-white/10 bg-[#0b0d14] hover:border-blue-400/30 transition-colors p-6">
+                <h3 className="text-lg font-semibold mb-2 text-white">{s.title}</h3>
+                <p className="text-sm text-gray-300 mb-4">{s.desc}</p>
+                <div className="flex flex-wrap gap-2">
+                  {s.tags.map((t) => (
+                    <span key={t} className="text-[11px] tracking-wide rounded-full border border-blue-400/30 text-blue-200/90 px-2 py-1">
+                      {t}
+                    </span>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
@@ -207,7 +259,7 @@ function App() {
                 <li><a href="#" className="hover:text-white">GitHub</a></li>
                 <li><a href="#" className="hover:text-white">LinkedIn</a></li>
                 <li><a href="#" className="hover:text-white">Twitter / X</a></li>
-                <li><a href="mailto:hello@example.com" className="hover:text-white">hello@example.com</a></li>
+                <li><a href="mailto:hello@tothemax.dev" className="hover:text-white">hello@tothemax.dev</a></li>
               </ul>
             </div>
           </div>
@@ -215,7 +267,7 @@ function App() {
       </section>
 
       <footer className="border-t border-white/10 py-8 text-center text-sm text-gray-400">
-        <p>© {new Date().getFullYear()} Your Name. Built with a black + blue vibe.</p>
+        <p>© {new Date().getFullYear()} tothemax.dev — Built with a black + blue vibe.</p>
       </footer>
     </div>
   )
